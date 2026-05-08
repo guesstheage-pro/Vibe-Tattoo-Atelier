@@ -18,18 +18,22 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background:url('sfondovibe1.jpg') center/cover no-repeat;
       color: #fff;
       position: relative;
+      background-color: #000; /* Fallback per sicurezza */
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55));
+      /* Qui abbiamo unito l'immagine e l'oscuramento */
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), 
+                  url('sfondovibe1.jpg') center/cover no-repeat;
       z-index: -1;
       filter: contrast(1.25) brightness(1.15);
+      -webkit-transform: translateZ(0); /* Ottimizzazione per iPhone */
+      transform: translateZ(0);
     }
 
     :root {
