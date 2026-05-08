@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Tattoo Atelier</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('sfondovibe1.jpg') center/cover no-repeat fixed;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55));
+      z-index: -1;
+      filter: contrast(1.25) brightness(1.15);
+    }
+
+    :root {
+      --primary: #d4af37;
+      --secondary: #9a9a9a;
+      --gray: #bdbdbd;
+    }
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero { max-width: 900px; }
+
+    .logo { width: 200px; margin-bottom: 30px; }
+
+    h1, h2 {
+      font-family: 'Cinzel', serif;
+    }
+
+    h1 { font-size: 3.2rem; }
+
+    .highlight { color: var(--primary); }
+
+    .subtitle {
+      color: var(--gray);
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), #b8962e);
+      color: black;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--primary);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(212,175,55,0.2);
+    }
+
+    section { padding: 90px 20px; }
+
+    .container { max-width: 1200px; margin: auto; }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    /* ===== ABOUT ===== */
+
+    .about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .card {
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+    }
+
+    /* =========================
+       🔥 SUPER GALLERY 3D
+    ========================== */
+
+    .carousel {
+      perspective: 1600px;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .carousel-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 280px;
+      height: 380px;
+      transition: 0.7s cubic-bezier(.25,.8,.25,1);
+      cursor: pointer;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    }
+
+    .carousel-item.active img {
+      box-shadow: 0 30px 80px rgba(212,175,55,0.35);
+    }
+
+    /* ===== FULLSCREEN VIEW ===== */
+
+    .viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.4s;
+    }
+
+    .viewer img {
+      max-width: 90%;
+      max-height: 85%;
+      border-radius: 20px;
+    }
+
+    .viewer.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* ========================= */
+
+    .contact-box {
+      text-align: center;
+      background: linear-gradient(180deg, #111, #0a0a0a);
+      border-radius: 24px;
+      padding: 50px 30px;
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: var(--gray);
+    }
+
+    iframe {
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="hero">
+    <img src="logovibe.jpg" class="logo">
+    <h1><span class="highlight">Vibe</span> Tattoo Atelier</h1>
+    <p class="subtitle">Arte sulla pelle. Stile unico. Identità indelebile.</p>
+
+    <div class="buttons">
+      <a href="#gallery" class="btn btn-secondary">Gallery</a>
+      <a href="https://wa.me/393921273048" target="_blank" class="btn btn-primary">
+        <i class="fa-brands fa-whatsapp"></i> Prenota
+      </a>
+      <a href="https://www.instagram.com/vibe_tattoo_atelier" target="_blank" class="btn btn-secondary">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Chi Siamo</h2>
+      <p>Precisione, stile e identità</p>
+    </div>
+
+    <div class="about">
+
+      <!-- TESTO SINISTRA -->
+      <div class="about-text">
+        <p>
+          <strong>Vibe Tattoo Atelier</strong> è uno studio privato su appuntamento situato nel cuore di Lecco,
+          pensato per offrire un’esperienza esclusiva e completamente personalizzata.
+        </p>
+
+        <p>
+          Ogni tatuaggio nasce da un confronto diretto con il cliente: ascolto, progettazione e realizzazione
+          si uniscono per creare qualcosa di unico, capace di rappresentarti davvero.
+        </p>
+
+        <p>
+          Qui non entri in un semplice studio, ma in uno spazio dedicato solo a te,
+          dove ogni dettaglio è curato per garantire comfort, privacy e qualità assoluta.
+        </p>
+
+        <p class="cta-text">
+          Prenotazione obbligatoria – contattaci su WhatsApp per fissare una consulenza.
+        </p>
+      </div>
+
+      <!-- CARD DESTRA -->
+      <div class="about-cards">
+
+        <div class="card">
+          <h3 class="highlight">Studio Privato</h3>
+          <p>Accesso solo su appuntamento per un ambiente riservato e tranquillo.</p>
+        </div>
+
+        <div class="card">
+          <h3 class="highlight">Esperienza Personalizzata</h3>
+          <p>Ogni tatuaggio viene progettato su misura, insieme a te.</p>
+        </div>
+
+        <div class="card">
+          <h3 class="highlight">Centro Lecco</h3>
+          <p>Posizione comoda nel cuore della città.</p>
+        </div>
+
+        <div class="card">
+          <h3 class="highlight">Qualità e Sicurezza</h3>
+          <p>Standard elevati, materiali certificati e massima attenzione.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ===== GALLERY ===== -->
+
+<section id="gallery">
+  <div class="container">
+    <div class="section-title">
+      <h2>Gallery</h2>
+      <p>I nostri lavori</p>
+    </div>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track">
+
+        <div class="carousel-item"><img src="tattoo1.jpg"></div>
+        <div class="carousel-item"><img src="tattoo2.jpg"></div>
+        <div class="carousel-item"><img src="tattoo3.jpg"></div>
+        <div class="carousel-item"><img src="tattoo4.jpg"></div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULLSCREEN -->
+<div class="viewer" id="viewer">
+  <span class="close" id="close">&times;</span>
+  <img id="viewer-img">
+</div>
+
+<section>
+  <div class="container">
+    <div class="contact-box">
+      <h2>Contatti</h2>
+      <p><strong>Telefono:</strong> 03411841908</p>
+      <p><strong>cellulare:</strong> 392 1273048</p>
+      <p><strong>Indirizzo:</strong> Via del Pozzo, 8, Lecco</p>
+
+      <iframe
+        src="https://www.google.com/maps?q=Via+del+Pozzo+8+Lecco&output=embed&t=k"
+        width="100%"
+        height="300"
+        style="border:0;"
+        loading="lazy">
+      </iframe>
+
+      <br><br>
+
+      <a href="https://wa.me/393921273048" target="_blank" class="btn btn-primary">
+        Scrivici ora
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Vibe Tattoo Atelier</p>
+</footer>
+
+<script>
+  const items = document.querySelectorAll(".carousel-item");
+  let current = 0;
+
+  function update() {
+    items.forEach((item, i) => {
+      let offset = i - current;
+      const total = items.length;
+
+      if (offset > total/2) offset -= total;
+      if (offset < -total/2) offset += total;
+
+      item.style.transform =
+        `translate(-50%, -50%)
+         translateX(${offset * 260}px)
+         translateZ(${offset === 0 ? 250 : -100}px)
+         rotateY(${offset * 50}deg)
+         scale(${offset === 0 ? 1.2 : 0.75})`;
+
+      item.style.opacity = Math.abs(offset) > 3 ? 0 : 1;
+      item.style.filter = `blur(${Math.abs(offset) * 2}px)`;
+
+      item.classList.toggle("active", offset === 0);
+    });
+  }
+
+  function next(){ current=(current+1)%items.length; update(); }
+  function prev(){ current=(current-1+items.length)%items.length; update(); }
+
+  setInterval(next, 3000);
+
+  // swipe
+  let startX = 0;
+  document.getElementById("carousel").addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  document.getElementById("carousel").addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if(endX < startX) next(); else prev();
+  });
+
+  // fullscreen
+  const viewer = document.getElementById("viewer");
+  const viewerImg = document.getElementById("viewer-img");
+
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      viewer.classList.add("active");
+      viewerImg.src = item.querySelector("img").src;
+    });
+  });
+
+  document.getElementById("close").onclick = () => viewer.classList.remove("active");
+  viewer.onclick = () => viewer.classList.remove("active");
+
+  update();
+  
+</script>
+
+</body>
+</html>
